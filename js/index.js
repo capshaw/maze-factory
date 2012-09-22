@@ -27,6 +27,8 @@ var area
 var found
 var percent
 
+var rainbowize = true // TODO
+
 /*
  * Click & other handlers are bound when the page loads
  */
@@ -35,12 +37,12 @@ $(document).ready(function(){
 	$('#resetButton').bind('click', function(event){
 		event.preventDefault()
 		startDrawing()
-	});
+	})
 
 	$('.optionsButton').bind('click', function(event){
 		event.preventDefault()
 	    $('#options').slideToggle(250)
-	});
+	})
 
 	$('.resizeButton').click(function(event){
 		event.preventDefault()
@@ -56,10 +58,17 @@ $(document).ready(function(){
 			BLOCK_SIZE = BLOCK_SIZE_LARGE
 			SQUARE_SIZE = SQUARE_SIZE_LARGE
 		}
-		BORDER_SIZE = (BLOCK_SIZE - SQUARE_SIZE)/2;
+		BORDER_SIZE = (BLOCK_SIZE - SQUARE_SIZE)/2
 		startDrawing()
 	})
-});
+
+	$('.rainbowizeButton').click(function(event){
+		event.preventDefault()
+		rainbowize = !(rainbowize)
+		startDrawing()
+		$(this).toggleClass('buttonOn')
+	})
+})
 
 
 // From http://www.html5canvastutorials.com/advanced/html5-canvas-animation-stage/
@@ -104,6 +113,7 @@ function fixCanvasWidth(){
 	CANVAS_WIDTH = canvas.width()
 
 	area = (CANVAS_WIDTH/BLOCK_SIZE) * (CANVAS_HEIGHT/BLOCK_SIZE)
+	huePerBlock = 1/area
 
 	var canvaso = document.getElementById('mainCanvas');
 	context = canvaso.getContext('2d');
@@ -119,6 +129,7 @@ function animate(){
 	pair = orderedList.pop()
 	node = pair[0]
 	parent = pair[1]
+	updateColor()
 	drawNode(lastNode, COLOR)
 	drawJoin(node, parent, COLOR)
 	drawNode(node, LEADING_COLOR)
@@ -135,6 +146,35 @@ function animate(){
 			finishAnimate()
 		}
 	});
+}
+
+function updateColor(){
+	if(rainbowize) {
+		COLOR = getCurrentRainBowColor()
+	}else{
+		COLOR = "rgb(200,200,200)"
+	}
+}
+
+// Adapted from http://krazydad.com/tutorials/makecolors.php
+function getCurrentRainBowColor() {
+	len = 50
+	center = 128
+	width = 127
+
+	frequency1 = 0.006
+	frequency2 = 0.006
+	frequency3 = 0.006
+
+	phase1 = 0
+	phase2 = 2
+	phase3 = 4
+
+	var red = Math.round(Math.sin(frequency1*found + phase1) * width + center);
+	var grn = Math.round(Math.sin(frequency2*found + phase2) * width + center);
+	var blu = Math.round(Math.sin(frequency3*found + phase3) * width + center);
+
+    return "rgb("+red+","+grn+","+blu+")"
 }
 
 function finishAnimate() {

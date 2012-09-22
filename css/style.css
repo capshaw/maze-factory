@@ -43,11 +43,6 @@ body{
     background: #333;
     border-radius: 20px;
     border: 1px solid #222;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    margin-left: -200px;
-    margin-top: -400px;
 
     display: none;
 }

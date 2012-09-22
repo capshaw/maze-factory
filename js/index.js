@@ -23,10 +23,20 @@ var percent
  */
 $(document).ready(function(){
 	startDrawing()
-	$('#reset').bind('click', function(event){
+	$('#resetButton').bind('click', function(event){
 		event.preventDefault()
 		startDrawing()
 		return false
+	});
+
+	$('#optionsButton').bind('click', function(event){
+		event.preventDefault()
+		$('#options').css({
+	        position:'absolute',
+	        left: ($(window).width() - $('#options').outerWidth())/2,
+	        top: ($(window).height() - $('#options').outerHeight())/2
+	    });
+	    $('#options').toggle()
 	});
 });
 

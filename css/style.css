@@ -15,7 +15,6 @@ body{
 #mazeContainer {
     background: #333;
     padding: 0px;
-    border-bottom: 1px solid #222;
 }
 
 #title{
@@ -38,13 +37,10 @@ body{
 }
 
 #options{
-    width: 800px;
-    height: 600px;
-    background: #333;
-    border-radius: 20px;
-    border: 1px solid #222;
-
-    display: none;
+    background: #666;
+    display:none;
+    padding:10px;
+    text-align: right;
 }
 
 a {
@@ -58,4 +54,22 @@ a {
 
 #bugs {
     display:none;
+}
+
+.panelButton {
+    display:inline-block;
+    line-height: 40px;
+    text-align: center;
+    text-transform: uppercase;
+    width:60px;
+    height: 40px;
+    border: 1px solid #69C;
+    background:#eee;
+    color:#222;
+    font-size: 0.8em
+}
+
+.panelButton:hover {
+    border: 1px solid #9CF;
+    background:#fff;
 }

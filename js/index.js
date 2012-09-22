@@ -1,4 +1,13 @@
 
+BLOCK_SIZE_SMALL = 12
+SQUARE_SIZE_SMALL = 6
+
+BLOCK_SIZE_MEDIUM = 20
+SQUARE_SIZE_MEDIUM = 10
+
+BLOCK_SIZE_LARGE = 40
+SQUARE_SIZE_LARGE = 20
+
 // (6,2)
 var BLOCK_SIZE = 15
 var SQUARE_SIZE = 7
@@ -11,7 +20,7 @@ var CANVAS_HEIGHT
 var remainingToVisit
 var seenLocations
 var orderedList
-// var context
+var context
 var lastNode
 
 var area
@@ -26,18 +35,30 @@ $(document).ready(function(){
 	$('#resetButton').bind('click', function(event){
 		event.preventDefault()
 		startDrawing()
-		return false
 	});
 
-	$('#optionsButton').bind('click', function(event){
+	$('.optionsButton').bind('click', function(event){
 		event.preventDefault()
-		$('#options').css({
-	        position:'absolute',
-	        left: ($(window).width() - $('#options').outerWidth())/2,
-	        top: ($(window).height() - $('#options').outerHeight())/2
-	    });
-	    $('#options').toggle()
+	    $('#options').slideToggle(250)
 	});
+
+	$('.resizeButton').click(function(event){
+		event.preventDefault()
+		if($(this).attr('href') == '#small'){
+			BLOCK_SIZE = BLOCK_SIZE_SMALL
+			SQUARE_SIZE = SQUARE_SIZE_SMALL
+		}
+		if($(this).attr('href') == '#medium'){
+			BLOCK_SIZE = BLOCK_SIZE_MEDIUM
+			SQUARE_SIZE = SQUARE_SIZE_MEDIUM
+		}
+		if($(this).attr('href') == '#large'){
+			BLOCK_SIZE = BLOCK_SIZE_LARGE
+			SQUARE_SIZE = SQUARE_SIZE_LARGE
+		}
+		BORDER_SIZE = (BLOCK_SIZE - SQUARE_SIZE)/2;
+		startDrawing()
+	})
 });
 
 
@@ -75,7 +96,7 @@ function Node (x, y) {
 
 function fixCanvasWidth(){
 	canvas = $('#mainCanvas')
-	htmlWidth = $(window).width()
+	htmlWidth = $(window).width()*0.99
 	htmlHeight = $(window).height() - $('#title').outerHeight();
 	document.getElementById('mainCanvas').width = htmlWidth - htmlWidth % BLOCK_SIZE
 	document.getElementById('mainCanvas').height = htmlHeight - htmlHeight % BLOCK_SIZE

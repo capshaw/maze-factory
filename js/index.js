@@ -8,7 +8,6 @@ SQUARE_SIZE_MEDIUM = 10
 BLOCK_SIZE_LARGE = 40
 SQUARE_SIZE_LARGE = 20
 
-// (6,2)
 var BLOCK_SIZE = 15
 var SQUARE_SIZE = 7
 var BORDER_SIZE = (BLOCK_SIZE - SQUARE_SIZE)/2;
@@ -17,17 +16,25 @@ var LEADING_COLOR = "rgb(224,27,100)"
 var CANVAS_WIDTH
 var CANVAS_HEIGHT
 
+/* Maps representing the remaining locations to visit,
+ * and the locations currently already seen */
 var remainingToVisit
 var seenLocations
+
 var orderedList
 var context
 var lastNode
 
+/* Variables representing the total area of the graph,
+ * the number of found blocks in the graph and the
+ * percent of found blocks in the graph. */
 var area
 var found
 var percent
 
-var rainbowize = true // TODO
+/* Initialize the page such that the graph draws rainbow
+ * by default. */
+var rainbowize = true
 
 /*
  * Click & other handlers are bound when the page loads
@@ -123,74 +130,10 @@ function startWalk(){
 	walk([0, 0], [-1, 0])
 }
 
-
-function animate(){
-
-	pair = orderedList.pop()
-	node = pair[0]
-	parent = pair[1]
-	updateColor()
-	drawNode(lastNode, COLOR)
-	drawJoin(node, parent, COLOR)
-	drawNode(node, LEADING_COLOR)
-	lastNode = node
-	found++
-
-	percent.html(Math.round(found/area*100) + "%")
-
-	// request new frame
-	requestAnimFrame(function() {
-		if(orderedList.length > 0) {
-			animate();
-		}else{
-			finishAnimate()
-		}
-	});
-}
-
-function updateColor(){
-	if(rainbowize) {
-		COLOR = getCurrentRainBowColor()
-	}else{
-		COLOR = "rgb(200,200,200)"
-	}
-}
-
-// Adapted from http://krazydad.com/tutorials/makecolors.php
-function getCurrentRainBowColor() {
-	len = 50
-	center = 128
-	width = 127
-
-	frequency1 = 0.006
-	frequency2 = 0.006
-	frequency3 = 0.006
-
-	phase1 = 0
-	phase2 = 2
-	phase3 = 4
-
-	var red = Math.round(Math.sin(frequency1*found + phase1) * width + center);
-	var grn = Math.round(Math.sin(frequency2*found + phase2) * width + center);
-	var blu = Math.round(Math.sin(frequency3*found + phase3) * width + center);
-
-    return "rgb("+red+","+grn+","+blu+")"
-}
-
-function finishAnimate() {
-	drawNode(lastNode, COLOR)
-	drawJoin([0, 0], [-1, 0], LEADING_COLOR)
-	drawJoin([CANVAS_WIDTH/BLOCK_SIZE-1, CANVAS_HEIGHT/BLOCK_SIZE-1],
-			 [CANVAS_WIDTH/BLOCK_SIZE+0, CANVAS_HEIGHT/BLOCK_SIZE-1],
-			 LEADING_COLOR)
-	percent.html('')
-}
-
 function walk(node, parent) {
 
 	seenLocations[getStringKey(node)] = true
-	// drawNode(node)
-	// drawJoin(node, parent)
+
 	orderedList.unshift([node, parent])
 	remainingToVisit[getStringKey(node)] = getNeighbors(node)
 	remainingToVisit[getStringKey(node)] = shuffleArray(remainingToVisit[getStringKey(node)])
@@ -237,6 +180,74 @@ function shuffleArray(a) {
     a[c] = d
    }
    return a;
+}
+
+/**
+ * Draw the next square onto the canvas.
+ */
+function animate(){
+
+	pair = orderedList.pop()
+	node = pair[0]
+	parent = pair[1]
+	updateColor()
+	drawNode(lastNode, COLOR)
+	drawJoin(node, parent, COLOR)
+	drawNode(node, LEADING_COLOR)
+	lastNode = node
+	found++
+
+	percent.html(Math.round(found/area*100) + "%")
+
+	// request new frame
+	requestAnimFrame(function() {
+		if(orderedList.length > 0) {
+			animate();
+		}else{
+			finishAnimate()
+		}
+	});
+}
+
+/**
+ * Update the system color for the next square to draw.
+ */
+function updateColor(){
+	if(rainbowize) {
+		COLOR = getCurrentRainBowColor()
+	}else{
+		COLOR = "rgb(200,200,200)"
+	}
+}
+
+// Adapted from http://krazydad.com/tutorials/makecolors.php
+function getCurrentRainBowColor() {
+	len = 50
+	center = 128
+	width = 127
+
+	frequency1 = 0.006
+	frequency2 = 0.006
+	frequency3 = 0.006
+
+	phase1 = 0
+	phase2 = 2
+	phase3 = 4
+
+	var red = Math.round(Math.sin(frequency1*found + phase1) * width + center);
+	var grn = Math.round(Math.sin(frequency2*found + phase2) * width + center);
+	var blu = Math.round(Math.sin(frequency3*found + phase3) * width + center);
+
+    return "rgb("+red+","+grn+","+blu+")"
+}
+
+function finishAnimate() {
+	drawNode(lastNode, COLOR)
+	drawJoin([0, 0], [-1, 0], LEADING_COLOR)
+	drawJoin([CANVAS_WIDTH/BLOCK_SIZE-1, CANVAS_HEIGHT/BLOCK_SIZE-1],
+			 [CANVAS_WIDTH/BLOCK_SIZE+0, CANVAS_HEIGHT/BLOCK_SIZE-1],
+			 LEADING_COLOR)
+	percent.html('')
 }
 
 function drawNode(node, colorIn) {

@@ -68,9 +68,29 @@ a {
     font-size: 0.8em;
     padding-left:5px;
     padding-right:5px;
+    min-width: 50px;
+    border-radius: 5px;
 }
 
 .buttonOn {
     background: #222;
     color:#fff;
+}
+
+.smallMaze {
+    background: url('../img/small.png') no-repeat center center;
+}
+
+.mediumMaze {
+    background: url('../img/medium.png') no-repeat center center;
+}
+
+.largeMaze {
+    background: url('../img/large.png') no-repeat center center;
+}
+
+#mapType{
+    display:inline-block;
+    border-bottom:1px dotted #666;
+    opacity: 0.9;
 }

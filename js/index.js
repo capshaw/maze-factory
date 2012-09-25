@@ -92,7 +92,9 @@ $(document).ready(function(){
 
 
 // From http://www.html5canvastutorials.com/advanced/html5-canvas-animation-stage/
-
+/**
+ *	Define what an animation frame is.
+ */
 window.requestAnimFrame = (function(callback) {
 	return window.requestAnimationFrame ||
 	window.webkitRequestAnimationFrame ||
@@ -104,6 +106,9 @@ window.requestAnimFrame = (function(callback) {
 	};
 })();
 
+/**
+ * After making the search, draw the nodes to screen.
+ */
 function startDrawing() {
 	mazeId = Math.random()
 	fixCanvasWidth()
@@ -123,6 +128,10 @@ function Node (x, y) {
     this.y = y;
 }
 
+/**
+ * Change the canvas width to take up the entirety of the screen area, while
+ * keeping in mind the block size.
+ */
 function fixCanvasWidth(){
 	canvas = $('#mainCanvas')
 	htmlWidth = $(window).width()*0.99
@@ -139,10 +148,17 @@ function fixCanvasWidth(){
 	context = canvaso.getContext('2d');
 }
 
+/**
+ *	Start the DFS search at top left corner.
+ *  TODO: OO JS (hahaha)
+ */
 function startWalk(){
 	walk([0, 0], [-1, 0])
 }
 
+/**
+ *	Perform the DFS search of the current node, node.
+ */
 function walk(node, parent) {
 
 	seenLocations[getStringKey(node)] = true
@@ -159,10 +175,16 @@ function walk(node, parent) {
 	}
 }
 
+/**
+ *	Function to give an arbitrary string name to a node.
+ */
 function getStringKey(node){
 	return node[0] + "-" + node[1]
 }
 
+/**
+ *	Get the neighbors of an arbitrary [x, y] node.
+ */
 function getNeighbors(node) {
 	neighbors = []
 	if (node[0] > 0) {
@@ -180,6 +202,9 @@ function getNeighbors(node) {
 	return neighbors
 }
 
+/**
+ *	Function that shuffles an array, returning the new shuffled array.
+ */
 // TODO: Rewrite
 // http://www.devcurry.com/2011/07/array-shuffle-in-javascript.html
 function shuffleArray(a) {
@@ -233,7 +258,10 @@ function updateColor(){
 	}
 }
 
-// Adapted from http://krazydad.com/tutorials/makecolors.php
+/**
+ * Returns the next rainbow color utilizing the "Annoying JS Rainbow"
+ * method from http://krazydad.com/tutorials/makecolors.php
+ */
 function getCurrentRainBowColor() {
 	len = 50
 	center = 128
@@ -254,6 +282,10 @@ function getCurrentRainBowColor() {
     return "rgb("+red+","+grn+","+blu+")"
 }
 
+/**
+ *	Draw the final joins on the upper-left and bottom-right of the screen.
+ *  Clear the percent-done counter.
+ */
 function finishAnimate() {
 	drawNode(lastNode, COLOR)
 	drawJoin([0, 0], [-1, 0], LEADING_COLOR)
@@ -263,11 +295,17 @@ function finishAnimate() {
 	percent.html('')
 }
 
+/**
+ *	Draw a given node with the specified color.
+ */
 function drawNode(node, colorIn) {
 	context.fillStyle = colorIn;
 	context.fillRect (node[0]*BLOCK_SIZE+BORDER_SIZE, node[1]*BLOCK_SIZE+BORDER_SIZE,SQUARE_SIZE, SQUARE_SIZE);
 }
 
+/**
+ *	Draw a join given two nodes and a specified color.
+ */
 function drawJoin(node1, node2, colorIn) {
 	context.fillStyle = colorIn;
 	startX = Math.min(node1[0], node2[0])

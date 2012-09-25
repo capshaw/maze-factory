@@ -41,16 +41,26 @@ var rainbowize = true
  */
 $(document).ready(function(){
 	startDrawing()
+
+	/**
+	 * Handler for the reset button click.
+	 */
 	$('#resetButton').bind('click', function(event){
 		event.preventDefault()
 		startDrawing()
 	})
 
+	/**
+	 * Handler for the clicking to open and close the options drawer.
+	 */
 	$('.optionsButton').bind('click', function(event){
 		event.preventDefault()
 	    $('#options').slideToggle(250)
 	})
 
+	/**
+	 *	Handler for the resizing options in the options drawer.
+	 */
 	$('.resizeButton').click(function(event){
 		event.preventDefault()
 		if($(this).attr('href') == '#small'){
@@ -69,6 +79,9 @@ $(document).ready(function(){
 		startDrawing()
 	})
 
+	/**
+	 *	Button to toggle between rainbow and boring monochrome.
+	 */
 	$('.rainbowizeButton').click(function(event){
 		event.preventDefault()
 		rainbowize = !(rainbowize)

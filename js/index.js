@@ -1,3 +1,8 @@
+/**
+ *	View full codebase on Github at:
+ *	http://github.com/capshaw/maze-factory
+ *  (this demo version is not necessarily the most up-to-date verions)
+ */
 
 BLOCK_SIZE_SMALL = 12
 SQUARE_SIZE_SMALL = 6

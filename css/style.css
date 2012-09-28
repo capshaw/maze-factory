@@ -62,7 +62,7 @@ a {
     text-align: center;
     text-transform: uppercase;
     height: 40px;
-    border: 1px solid #111;
+    border: 1px solid #666;
     background:#eee;
     color:#222;
     font-size: 0.8em;
@@ -93,4 +93,12 @@ a {
     display:inline-block;
     border-bottom:1px dotted #666;
     opacity: 0.9;
+}
+
+.github_cat{
+    background: url('../img/original.png') no-repeat center center;
+    background-size: contain;
+    width: 25px;
+    height: 25px;
+    display: inline-block;
 }

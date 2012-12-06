@@ -1,5 +1,5 @@
 body{
-    font-family: sans-serif;
+    font-family: "Helvetica", sans-serif;
     padding: 0px;
     margin: 0px;
     background:#333 url(../img/use_your_illusion.png);
@@ -39,7 +39,7 @@ body{
 #options{
     background: #666;
     display:none;
-    padding:10px;
+    padding: 0 10px;
     text-align: right;
 }
 
@@ -58,23 +58,21 @@ a {
 
 .panelButton {
     display:inline-block;
-    line-height: 40px;
+    line-height: 50px;
     text-align: center;
     text-transform: uppercase;
-    height: 40px;
-    border: 1px solid #666;
+    height: 50px;
     background:#eee;
-    color:#222;
+    color:#555;
     font-size: 0.8em;
-    padding-left:5px;
-    padding-right:5px;
+    padding: 0 10px;
     min-width: 50px;
-    border-radius: 5px;
 }
 
 .buttonOn {
     background: #222;
     color:#fff;
+    text-transform: line-through;
 }
 
 .smallMaze {

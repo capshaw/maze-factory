@@ -17,12 +17,22 @@ body{
     padding: 0px;
 }
 
-#title{
+#title {
     font-size: 25px;
     font-weight: normal;
     background: #222;
     margin: 0px;
     padding:20px;
+}
+
+#title a {
+    color: #eee;
+    border-bottom: 1px solid #666;
+    font-size: 16px;
+}
+
+#title a:hover {
+    color: #fff;
 }
 
 #percent {
@@ -50,10 +60,6 @@ a {
 
 .floatRight{
     float:right;
-}
-
-#bugs {
-    display:none;
 }
 
 .panelButton {
@@ -91,12 +97,4 @@ a {
     display:inline-block;
     border-bottom:1px dotted #666;
     opacity: 0.9;
-}
-
-.github_cat{
-    background: url('../img/original.png') no-repeat center center;
-    background-size: contain;
-    width: 25px;
-    height: 25px;
-    display: inline-block;
 }

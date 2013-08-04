@@ -1,9 +1,3 @@
-/**
- *	View full codebase on Github at:
- *	http://github.com/capshaw/maze-factory
- *  (this demo version is not necessarily the most up-to-date verions)
- */
-
 BLOCK_SIZE_SMALL = 12
 SQUARE_SIZE_SMALL = 6
 
@@ -58,7 +52,7 @@ $(document).ready(function(){
 	/**
 	 * Handler for the clicking to open and close the options drawer.
 	 */
-	$('.optionsButton').bind('click', function(event){
+	$('#optionsButton').bind('click', function(event){
 		event.preventDefault()
 	    $('#options').slideToggle(250)
 	})

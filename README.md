@@ -5,6 +5,8 @@ A HTML5 web application that paints a maze to a canvas.
 
 Various options are available to the user, including the size of block to draw and the color of the resulting map.
 
+![Maze factory UI](img/ui.png)
+
 Current Bugs
 ------------
 

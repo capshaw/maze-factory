@@ -25,13 +25,17 @@ body{
     padding:20px;
 }
 
-#title a {
-    color: #eee;
-    border-bottom: 1px solid #666;
+.nav {
     font-size: 16px;
+    margin-top: 5px;
 }
 
-#title a:hover {
+.nav a {
+    color: #eee;
+    border-bottom: 1px solid #666;
+}
+
+.nav a:hover {
     color: #fff;
 }
 
